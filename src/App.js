@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 const messages = [
   "Learn React ⚛️",
   "Apply for jobs 💼",
@@ -5,23 +7,30 @@ const messages = [
 ];
 
 export default function App() {
-  const step = 1; //initial steps
+  // To add state in component, do the 3 steps
+  /*
+    1. Add a state variable
+    2. Use the code in a JSX
+    3. Update the piece of state in some handler
+  */
+  const [step, setStep] = useState(1); // useState called **HOOKS** in React. useState can only be used at the **TOP LEVEL** of the component. Not inside the functions, if-else statements.
+  // ONLY update the state **using "setter function (i.e. setStep)"**
 
   // Function inside the component
   function handlePrevious() {
-    alert("Previous");
+    if (step > 1) setStep(step - 1);
   }
 
   function handleNext() {
-    alert("Next");
+    if (step < 3) setStep(step + 1);
   }
 
   return (
     <div className="steps">
       <div className="numbers">
-        <div className={`${step >= 1 ? "active" : ""}`}>1</div>
-        <div className={`${step >= 2 ? "active" : ""}`}>2</div>
-        <div className={`${step >= 3 ? "active" : ""}`}>3</div>
+        <div className={step >= 1 ? "active" : ""}>1</div>
+        <div className={step >= 2 ? "active" : ""}>2</div>
+        <div className={step >= 3 ? "active" : ""}>3</div>
       </div>
 
       <p className="message">
