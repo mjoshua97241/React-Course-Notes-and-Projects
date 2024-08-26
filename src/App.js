@@ -21,12 +21,14 @@ export default function App() {
 
   // Function inside the component
   function handlePrevious() {
-    if (step > 1) setStep(step - 1);
+    if (step > 1) setStep((s) => s - 1); //safe for later updates
   }
 
   function handleNext() {
-    if (step < 3) setStep(step + 1);
-
+    if (step < 3) {
+      setStep((s) => s + 1); //safe for later updates
+      //setStep((s) => s + 1);
+    }
     // BAD PRACTICE - mutating objects
     // test.name = "Fred";
 
@@ -37,7 +39,7 @@ export default function App() {
     // use <div></div> to start JSX
     // <> "React Fragment" when you want to use more than one element
     <>
-      <button className="close" onClick={() => setIsOpen(!isOpen)}>
+      <button className="close" onClick={() => setIsOpen((is) => !is)}>
         &times;
       </button>
 
@@ -117,4 +119,22 @@ STATE
     👉 When to use state
     👉 Where to place state
     👉 Types of state
+
+UPDATING STATE BASED ON CURRENT STATE
+  Ex: (this will not work by repeating twice)
+    ❌
+    function handleNext() {
+    if (step < 3) {
+      setStep(step + 1);
+      //setStep(step + 1);
+    }
+    
+    ✅ - safe for later updates
+    - We should use "callback function"
+    function handleNext() {
+    if (step < 3) {
+      setStep((s) => s + 1); //callback function
+      //setStep((s) => s + 1);
+    }
+
 */
